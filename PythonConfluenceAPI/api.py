@@ -59,7 +59,7 @@ class ConfluenceAPI(object):
     ATTACHMENT_METADATA_KEYS = {"id", "type", "version", "title"}
     UPDATE_CONTENT_REQUIRED_KEYS = {"id", "version"}
 
-    def __init__(self, username, password, uri_base, user_agent=DEFAULT_USER_AGENT):
+    def __init__(self, username, password, uri_base, user_agent=DEFAULT_USER_AGENT, verifyCert=true):
         """
         Initialize the API object.
         :param username: Your Confluence username.
@@ -73,6 +73,7 @@ class ConfluenceAPI(object):
         self.uri_base = uri_base if uri_base.endswith('/') else uri_base + "/"
         self.user_agent = user_agent
         self.session = None
+        self.verifyCert = verifyCert
 
     def _start_http_session(self):
         """
@@ -81,6 +82,8 @@ class ConfluenceAPI(object):
         """
         api_logger.debug("Starting new HTTP session...")
         self.session = requests.Session()
+        if self.verifyCert == False
+            self.session.verify = False
         self.session.headers.update({"User-Agent": self.user_agent})
         if self.username and self.password:
             api_logger.debug("Requests will use authorization.")
